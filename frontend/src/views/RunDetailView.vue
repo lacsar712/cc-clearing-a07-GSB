@@ -12,6 +12,12 @@
         :loading="settling"
         @click="settle"
       >确认 Settle</el-button>
+      <el-button
+        type="primary"
+        plain
+        :disabled="detail?.run?.status !== 'COMPLETED'"
+        @click="$router.push({ name: 'settlement-instructions', query: { runId: detail.run.runId } })"
+      >结算指示预览 / 释放</el-button>
     </div>
 
     <div class="card-panel" v-loading="loading">

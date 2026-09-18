@@ -4,10 +4,12 @@ import com.clearing.netting.adapter.out.persistence.entity.MemberJpaEntity;
 import com.clearing.netting.adapter.out.persistence.entity.NetPositionJpaEntity;
 import com.clearing.netting.adapter.out.persistence.entity.NettingRunJpaEntity;
 import com.clearing.netting.adapter.out.persistence.entity.ObligationJpaEntity;
+import com.clearing.netting.adapter.out.persistence.entity.SettlementInstructionJpaEntity;
 import com.clearing.netting.adapter.out.persistence.entity.UserJpaEntity;
 import com.clearing.netting.domain.model.Member;
 import com.clearing.netting.domain.model.NetPosition;
 import com.clearing.netting.domain.model.NettingRun;
+import com.clearing.netting.domain.model.SettlementInstruction;
 import com.clearing.netting.domain.model.TradeObligation;
 import com.clearing.netting.domain.model.UserAccount;
 
@@ -105,6 +107,35 @@ final class PersistenceMapper {
         e.setUsername(u.getUsername());
         e.setPasswordHash(u.getPasswordHash());
         e.setRole(u.getRole());
+        return e;
+    }
+
+    static SettlementInstruction toDomain(SettlementInstructionJpaEntity e) {
+        return new SettlementInstruction(
+                e.getInstructionId(),
+                e.getRunId(),
+                e.getMemberId(),
+                e.getCurrency(),
+                e.getAmount(),
+                e.getDirection(),
+                e.getStatus(),
+                e.getPreviewedAt(),
+                e.getReleasedAt(),
+                e.getReleasedBy());
+    }
+
+    static SettlementInstructionJpaEntity toEntity(SettlementInstruction i) {
+        SettlementInstructionJpaEntity e = new SettlementInstructionJpaEntity();
+        e.setInstructionId(i.getInstructionId());
+        e.setRunId(i.getRunId());
+        e.setMemberId(i.getMemberId());
+        e.setCurrency(i.getCurrency());
+        e.setAmount(i.getAmount());
+        e.setDirection(i.getDirection());
+        e.setStatus(i.getStatus());
+        e.setPreviewedAt(i.getPreviewedAt());
+        e.setReleasedAt(i.getReleasedAt());
+        e.setReleasedBy(i.getReleasedBy());
         return e;
     }
 }
